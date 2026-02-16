@@ -1,0 +1,214 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{multicol}
+\usepackage{longtable}
+\usepackage{titlesec}
+\usepackage{amsmath} 
+\usepackage{amssymb}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstset{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+
+\begin{document}
+{
+\raggedleft
+Name: Paveethiran SK\\
+Reg.No: 3122235001094\\
+Class: CSE-B\\
+}
+
+\begin{center}
+    \large \textbf{Sri Sivasubramaniya Nadar College of Engineering, Chennai} \\
+    (An Autonomous Institution Affiliated to Anna University) \\
+    \vspace{0.3cm}
+\end{center}
+
+\begin{table}[!h]
+\centering
+\renewcommand{\arraystretch}{1.5}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|cll|}
+\hline
+Degree \& Branch & \multicolumn{1}{c|}{B.E. Computer Science \& Engineering} & Semester & VI \\ \hline
+Subject Code \& Name & \multicolumn{3}{c|}{UCS2612 -- Machine Learning Algorithms Laboratory} \\ \hline
+Academic Year & 2025--2026 (Even) & Batch & 2023--2027 \\ \hline
+\end{tabular}
+}
+\end{table}
+
+\begin{center}
+\textbf{Experiment 4: Binary Classification using Linear and Kernel-Based Models}
+\end{center}
+
+%==================================================
+\section*{Objective}
+To classify emails as spam or ham using Logistic Regression and Support Vector Machine (SVM) classifiers and to analyze the effect of hyperparameter tuning on classification performance.
+
+%==================================================
+\section*{Dataset}
+The \textbf{Spambase} dataset contains numerical features extracted from email content and a binary label indicating spam or non-spam (ham).
+
+\textbf{Dataset Links (for reference):}
+\begin{itemize}
+    \item Kaggle: \href{https://www.kaggle.com/datasets/somesh24/spambase}{https://www.kaggle.com/datasets/somesh24/spambase}
+\end{itemize}
+
+%==================================================
+\section*{Theory Background}
+
+\subsection*{1. Logistic Regression}
+Logistic Regression is a probabilistic classification algorithm used for binary classification problems. 
+It models the probability that a sample belongs to a particular class using the sigmoid function:
+
+
+
+[Image of sigmoid function graph]
+
+
+\[
+P(y=1|\mathbf{x}) = \frac{1}{1 + e^{-(\mathbf{w}^T\mathbf{x} + b)}}
+\]
+
+A threshold (usually 0.5) is applied to convert probability into class labels.
+
+\textbf{Loss Function:} 
+Logistic Regression minimizes the \textbf{log-loss (cross-entropy loss)}, which penalizes incorrect predictions.
+
+\subsection*{Regularization in Logistic Regression}
+Regularization prevents overfitting by adding a penalty to large coefficients.
+
+\begin{itemize}
+    \item \textbf{L1 Regularization (Lasso):} 
+    Encourages sparsity by shrinking some coefficients exactly to zero. 
+    Useful for feature selection.
+    
+    \item \textbf{L2 Regularization (Ridge):} 
+    Penalizes large weights but keeps all features. 
+    Improves model generalization.
+\end{itemize}
+
+\subsection*{Logistic Regression Hyperparameters}
+\begin{itemize}
+    \item \textbf{C (Inverse Regularization Strength):} 
+    Controls the trade-off between model complexity and regularization.
+    \begin{itemize}
+        \item Small $C$: Strong regularization, simpler model
+        \item Large $C$: Weak regularization, complex model
+    \end{itemize}
+
+    \item \textbf{Solver:}
+    \begin{itemize}
+        \item \texttt{liblinear}: Suitable for small datasets; supports L1 and L2
+        \item \texttt{saga}: Efficient for large datasets; supports L1 and L2
+    \end{itemize}
+\end{itemize}
+
+%--------------------------------------------------
+\subsection*{2. Support Vector Machine (SVM)}
+Support Vector Machine is a margin-based classifier that finds an optimal hyperplane separating two classes by maximizing the margin between them.
+
+
+
+\textbf{Key Idea:} 
+Only a subset of training points (support vectors) define the decision boundary.
+
+\subsection*{SVM Kernels}
+\begin{itemize}
+    \item \textbf{Linear Kernel}: Suitable for linearly separable data
+    \item \textbf{Polynomial Kernel}: Captures polynomial relationships
+    \item \textbf{RBF Kernel}: Handles complex, non-linear boundaries
+    \item \textbf{Sigmoid Kernel}: Similar to neural network activation
+\end{itemize}
+
+\subsection*{SVM Hyperparameters}
+\begin{itemize}
+    \item \textbf{C}: Controls margin vs misclassification
+    \begin{itemize}
+        \item Small $C$: Wider margin, higher bias
+        \item Large $C$: Narrow margin, lower bias
+    \end{itemize}
+    \item \textbf{$\gamma$}: Controls influence of a single training point
+\end{itemize}
+
+%==================================================
+\section*{Implementation Steps}
+\begin{enumerate}[label=\arabic*.]
+    \item Load the dataset.
+    \item Preprocess the data (Missing values, Standardization).
+    \item Perform Exploratory Data Analysis (EDA).
+    \item Split the dataset into training and testing sets.
+    \item Train and tune Logistic Regression and SVM.
+    \item Evaluate models and perform 5-Fold Cross-Validation.
+\end{enumerate}
+
+%==================================================
+\section*{Experimental Results}
+
+\begin{table}[H]
+\centering
+\caption{Hyperparameter Tuning Results}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|l|c|c|c|}
+\hline
+Model & Search Method & Best Parameters & Best CV Accuracy \\ \hline
+Logistic Regression & Grid & C=10, Penalty=L1, Solver=liblinear & 0.9274 \\
+SVM & Grid & C=1, Gamma=auto, Kernel=RBF & 0.9277 \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{SVM Kernel-wise Performance}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|l|c|c|c|}
+\hline
+Kernel & Accuracy & F1 Score & Training Time (s) \\ \hline
+Linear &  0.917481 &  0.903061   & 0.882319 \\
+Polynomial & 0.764387 & 0.629060  &  2.113856 \\
+RBF & 0.934853 & 0.920635  & 1.185296 \\
+Sigmoid & 0.889251 &  0.866492  & 1.171060 \\ \hline
+\end{tabular}
+\end{table}
+
+\section*{Performance Analysis}
+The Support Vector Machine (SVM) with the Radial Basis Function (RBF) kernel emerged as the best-performing classifier. It achieved the highest test accuracy of 93.49\%, confirming the presence of complex non-linear decision boundaries in the email data. Logistic Regression performed well but was limited by its linear nature.
+
+%==================================================
+\section*{References}
+\begin{itemize}
+    \item \href{https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression}{Scikit-learn: Logistic Regression}
+    \item \href{https://scikit-learn.org/stable/modules/svm.html}{Scikit-learn: Support Vector Machines}
+\end{itemize}
+
+\end{document}

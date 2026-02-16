@@ -1,0 +1,250 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{multicol}
+\usepackage{longtable}
+\usepackage{titlesec}
+\usepackage{float}
+\begin{document}
+
+%==================================================
+\begin{flushright}
+    Name: Paveethiran SK \\
+    Reg. No: 3122235001094 \\
+    Class: CSE- B
+\end{flushright}
+\begin{center}
+
+    \large \textbf{Sri Sivasubramaniya Nadar College of Engineering, Chennai} \\
+    (An Autonomous Institution Affiliated to Anna University) \\
+    \vspace{0.3cm}
+\end{center}
+
+\begin{table}[!h]
+\renewcommand{\arraystretch}{1.5}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|cll|}
+\hline
+Degree \& Branch & \multicolumn{1}{c|}{B.E. Computer Science \& Engineering} & Semester & VI \\ \hline
+Subject Code \& Name & \multicolumn{3}{c|}{UCS2612 -- Machine Learning Algorithms Laboratory} \\ \hline
+Academic Year & 2025--2026 (Even) & Batch & 2023--2027 \\ \hline
+Due Date & \multicolumn{3}{c|}{\textbf{23.1.2026}} \\ \hline
+\end{tabular}
+}
+\end{table}
+
+\begin{center}
+\textbf{ Experiment 2:}
+\textbf{Binary Classification using Naïve Bayes and K-Nearest Neighbors}
+\end{center}
+
+% --------------------------------------------------
+
+\section*{1. Aim and Objective}
+To implement Naïve Bayes and K-Nearest Neighbors (KNN) classifiers for a binary classification problem, evaluate them using multiple performance metrics, visualize model behavior, and analyze overfitting, underfitting, and bias–variance characteristics.
+
+% --------------------------------------------------
+
+\section*{2. Dataset Description}
+The Spambase dataset is a benchmark binary classification dataset used to identify spam emails. It consists of numerical features extracted from email content and a binary class label indicating spam or non-spam.
+
+\textbf{Dataset Reference:}
+\begin{itemize}
+\item Kaggle – Spambase Dataset
+\end{itemize}
+
+% --------------------------------------------------
+
+\section*{3. Preprocessing Steps}
+\begin{itemize}
+\item Loaded the dataset using Pandas
+\item Separated features and target labels
+\item Performed stratified train–test split
+\item Applied feature scaling using StandardScaler
+\end{itemize}
+
+% --------------------------------------------------
+
+\section*{4. Implementation Details}
+\begin{itemize}
+\item Implemented Gaussian, Multinomial, and Bernoulli Naïve Bayes classifiers
+\item Implemented baseline KNN classifier
+\item Tuned KNN hyperparameters using GridSearchCV and RandomizedSearchCV
+\item Compared KDTree and BallTree neighbor search algorithms
+\end{itemize}
+
+% --------------------------------------------------
+
+\section*{5. Visualizations}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.65\textwidth]{class.png}
+\caption{Class Distribution of Spam and Non-Spam Emails}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{feature_distribution.png}
+\caption{Feature Distribution Plot (Sample Features)}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.55\textwidth]{gaussiannb.png}
+\caption{Confusion Matrix for Gaussian Naïve Bayes}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.55\textwidth]{multinomialnb.png}
+\caption{Confusion Matrix for Multinomial Naïve Bayes}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.55\textwidth]{bernoullinb.png}
+\caption{Confusion Matrix for Bernoulli Naïve Bayes}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.65\textwidth]{roc_GaussianNB.png}
+\caption{ROC Curve for Gaussian Naïve Bayes}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.65\textwidth]{roc_MultinomialNB.png}
+\caption{ROC Curve for Multinomial Naïve Bayes}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.65\textwidth]{roc_BernoulliNB.png}
+\caption{ROC Curve for Bernoulli Naïve Bayes}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{accuracy_vs_k.png}
+\caption{Accuracy vs. k Plot for KNN}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{train_vs_validation.png}
+\caption{Training vs Validation Accuracy for KNN}
+\end{figure}
+
+
+% --------------------------------------------------
+
+\section*{6. Performance Tables}
+
+\begin{table}[H]
+\centering
+\caption{Naïve Bayes Performance Metrics}
+\begin{tabular}{|l|c|c|c|}
+\hline
+\textbf{Metric} & \textbf{Gaussian NB} & \textbf{Multinomial NB} & \textbf{Bernoulli NB} \\ \hline
+Accuracy & 0.8339 & 0.895765 & 0.901194     \\ \hline
+Precision & 0.7178 & 0.934853 & 0.902367   \\ \hline
+Recall & 0.9532 & 0.790634 &0.840220   \\ \hline
+F1 Score & 0.8189 & 0.856716 & 0.870185     \\ \hline
+Specificity & 0.5495 & 0.964158& 0.940860 \\ \hline
+Training Time (s) & 0.0042 & 0.035842  & 0.059140 \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{KNN Hyperparameter Tuning}
+\begin{tabular}{|l|c|c|}
+\hline
+\textbf{Search Method} & \textbf{Best Parameters} & \textbf{Best CV Accuracy} \\ \hline
+Grid Search & k=15, distance, KDTree & 0.9209 \\ \hline
+Randomized Search & k=15, distance, BallTree & 0.9209 \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{KNN Performance using KDTree}
+\begin{tabular}{|l|c|}
+\hline
+\textbf{Metric} & \textbf{Value} \\ \hline
+Optimal k & 15 \\ \hline
+Accuracy & 0.9175 \\ \hline
+Precision & 0.9065 \\ \hline
+Recall & 0.8815 \\ \hline
+F1 Score & 0.8939 \\ \hline
+Training Time (s) & 0.0256 \\ \hline
+Prediction Time (s) & 0.2356 \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{KNN Performance using BallTree}
+\begin{tabular}{|l|c|}
+\hline
+\textbf{Metric} & \textbf{Value} \\ \hline
+Optimal k & 15 \\ \hline
+Accuracy & 0.9175 \\ \hline
+Precision & 0.9065 \\ \hline
+Recall & 0.8815 \\ \hline
+F1 Score & 0.8939 \\ \hline
+Training Time (s) & 0.0075 \\ \hline
+Prediction Time (s) & 0.1619 \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Comparison of Neighbor Search Algorithms}
+\begin{tabular}{|l|c|c|}
+\hline
+\textbf{Criterion} & \textbf{KDTree} & \textbf{BallTree} \\ \hline
+Accuracy & 0.9175 & 0.9175 \\ \hline
+Training Time (s) & 0.0256 & 0.0075 \\ \hline
+Prediction Time (s) & 0.2356 & 0.1619 \\ \hline
+Memory Usage & Low / Medium & Medium / High \\ \hline
+\end{tabular}
+\end{table}
+
+% --------------------------------------------------
+
+\section*{7. Overfitting and Underfitting Analysis}
+\begin{itemize}
+\item Small values of k resulted in overfitting
+\item Large values of k caused underfitting
+\item Hyperparameter tuning improved generalization
+\end{itemize}
+
+% --------------------------------------------------
+
+\section*{8. Bias–Variance Analysis}
+\begin{itemize}
+\item Naïve Bayes shows higher bias due to feature independence assumption
+\item KNN exhibits higher variance for small k values
+\item Hyperparameter tuning balances bias–variance trade-off
+\end{itemize}
+
+% --------------------------------------------------
+
+\section*{9. Observations and Conclusion}
+Naïve Bayes classifiers were computationally efficient, while tuned KNN models achieved higher accuracy. BallTree demonstrated better computational efficiency compared to KDTree. Proper preprocessing, visualization, and hyperparameter tuning significantly improved model performance and generalization.
+
+\section*{References}
+\begin{itemize}
+\item Scikit-learn – Naïve Bayes Documentation
+\item Scikit-learn – KNN Documentation
+\item Scikit-learn – Hyperparameter Optimization
+\item Kaggle – Spambase Dataset
+\end{itemize}
+
+\end{document}

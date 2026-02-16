@@ -1,0 +1,287 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{multicol}
+\usepackage{longtable}
+\usepackage{titlesec}
+\usepackage{float}
+\begin{document}
+
+%==================================================
+\begin{flushright}
+    Name: Paveethiran SK\\
+    Reg. No: 3122235001094 \\
+    Class: CSE- B
+\end{flushright}
+\begin{center}
+
+    \large \textbf{Sri Sivasubramaniya Nadar College of Engineering, Chennai} \\
+    (An Autonomous Institution Affiliated to Anna University) \\
+    \vspace{0.3cm}
+\end{center}
+
+\begin{table}[!h]
+\renewcommand{\arraystretch}{1.5}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|cll|}
+\hline
+Degree \& Branch & \multicolumn{1}{c|}{B.E. Computer Science \& Engineering} & Semester & VI \\ \hline
+Subject Code \& Name & \multicolumn{3}{c|}{UCS2612 -- Machine Learning Algorithms Laboratory} \\ \hline
+Academic Year & 2025--2026 (Even) & Batch & 2023--2027 \\ \hline
+Due Date & \multicolumn{3}{c|}{\textbf{23.1.2026}} \\ \hline
+\end{tabular}
+}
+\end{table}
+
+\begin{center}
+\textbf{Experiment 3: Regression Analysis using Linear and Regularized Models}
+\end{center}
+
+%==================================================
+\section*{Objective}
+To implement linear and regularized regression models for predicting a continuous target variable, evaluate their performance using multiple metrics, visualize model behavior, and analyze overfitting, underfitting, and bias--variance characteristics.
+
+%==================================================
+\section*{Dataset}
+A real-world regression dataset containing numerical and categorical features related to loan applications is used.  
+The target variable is the \textbf{loan amount sanctioned}.
+
+Dataset reference:
+\begin{itemize}
+    \item Kaggle: \href{https://www.kaggle.com/datasets/phileinsophos/predict-loan-amount-data}{Predict Loan Amount Data}
+\end{itemize}
+
+%==================================================
+\section*{Brief Theory (For Lab Understanding)}
+
+\subsection*{Linear Regression}
+Linear Regression models the relationship between input features and a continuous target variable.
+It is simple, interpretable, and serves as a baseline regression model.
+
+\subsection*{Regularized Regression Models}
+Regularization techniques are used to control model complexity:
+\begin{itemize}
+    \item Ridge Regression reduces coefficient magnitudes
+    \item Lasso Regression performs feature selection
+    \item Elastic Net combines Ridge and Lasso behavior
+\end{itemize}
+
+Regularization helps improve generalization and reduce overfitting.
+
+%==================================================
+\section*{Task Description}
+Students must:
+\begin{itemize}
+    \item Implement Linear, Ridge, Lasso, and Elastic Net regression models
+    \item Tune regularization Parameters using Grid Search or Randomized Search
+    \item Visualize regression results and errors
+    \item Analyze overfitting, underfitting, and bias--variance trade-off
+\end{itemize}
+
+%==================================================
+\section*{Implementation Steps}
+\begin{enumerate}[label=\arabic*.]
+    \item Load the dataset
+    \item Perform data preprocessing:
+    \begin{itemize}
+        \item Handle missing values
+        \item Encode categorical variables
+        \item Standardize numerical features
+    \end{itemize}
+    \item Perform Exploratory Data Analysis (EDA)
+    \item Visualize feature distributions and target distribution
+    \item Split the dataset into training and testing sets
+    \item Train baseline Linear Regression
+    \item Train Ridge, Lasso, and Elastic Net models
+    \item Perform Parameter tuning using 5-Fold Cross-Validation
+    \item Evaluate all models using regression metrics
+\end{enumerate}
+
+%==================================================
+\section*{Required Visualizations}
+
+\begin{figure}[H] % Using [H] requires \usepackage{float}
+    \centering
+    \includegraphics[width=1.0\textwidth]{regression_analysis_results.png}
+    \caption{Comprehensive Regression Analysis: Target Distribution, Feature Correlations, Residual Analysis, Learning Curves, and Model Coefficients.}
+    \label{fig:regression_dashboard}
+\end{figure}
+
+%==================================================
+\section*{Performance Metrics to be Reported}
+\begin{itemize}
+    \item Mean Absolute Error (MAE)
+    \item Mean Squared Error (MSE)
+    \item Root Mean Squared Error (RMSE)
+    \item $R^2$ Score
+    \item Training Time
+\end{itemize}
+
+%==================================================
+\section*{Parameter Search Space}
+\begin{itemize}
+    \item Ridge: $\alpha \in \{0.01, 0.1, 1, 10, 100\}$
+    \item Lasso: $\alpha \in \{0.001, 0.01, 0.1, 1, 10\}$
+    \item Elastic Net:
+    \begin{itemize}
+        \item $\alpha \in \{0.01, 0.1, 1, 10\}$
+        \item $l1\_ratio \in \{0.2, 0.5, 0.8\}$
+    \end{itemize}
+\end{itemize}
+
+%==================================================
+\section*{Parameter Tuning Results}
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\caption{Parameter Tuning Summary}
+\begin{tabular}{|l|c|c|c|}
+\hline
+Model & Search Method & Best Parameters & Best CV $R^2$ \\ \hline
+Ridge Regression & Grid &alpha: 100  &0.5535 \\
+Lasso Regression & Grid &alpha: 100  &0.5536  \\
+Elastic Net Regression & Grid &alpha:0.1,l1 ratio:0.5  &  0.5526 \\ \hline
+\end{tabular}
+\end{table}
+
+%==================================================
+\section*{Cross-Validation Performance (K = 5)}
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\caption{Cross-Validation Performance}
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+Model & MAE & MSE & RMSE & $R^2$ \\ \hline
+Linear Regression & 21473.089825 & 9.943805e+08 & 31533.799491 & 0.574804 \\ 
+Ridge Regression & 21494.666953 & 9.841257e+08 & 31370.777289 & 0.579044 \\ 
+Lasso Regression & 21448.440524 & 9.540158e+08 & 30887.146673 & 0.591504 \\ 
+Elastic Net Regression & 21679.318781 & 9.682464e+08 & 31116.657542 & 0.585506 \\ \hline
+\end{tabular}
+\end{table}
+
+%==================================================
+\section*{Test Set Performance Comparison}
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\caption{Test Set Performance}
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+Model & MAE & MSE & RMSE & $R^2$ \\ \hline
+Linear Regression & 21731.51 & 1.015417e+09 & 31865.60 & 0.5526 \\
+Ridge Regression & 21555.77 & 1.013545e+09 & 31836.22 & 0.5535 \\
+Lasso Regression & 21538.18 & 1.013206e+09 & 31830.89 & 0.5536 \\
+Elastic Net Regression & 21731.51 & 1.015417e+09 & 31865.60 & 0.5526 \\ \hline
+\end{tabular}
+\end{table}
+
+%==================================================
+\section*{Effect of Regularization on Coefficients}
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\caption{Coefficient Comparison}
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+Feature & Linear & Ridge & Lasso & Elastic Net \\ \hline
+Gender & -108.072731 & -135.417297 & -35.604374 & -108.072731 \\
+Age & -279.612326 & -302.336815 & -192.260311 & -279.612326 \\
+Income (USD) & 109.067615 & 1150.660058 & 0.000000 & 109.067615 \\
+Income Stability & 1975.324894 & 2143.945972 & 2003.230550 & 1975.324894 \\
+Profession & -453.471422 & -412.871425 & -299.455633 & -453.471422 \\
+Type of Employment & 530.762090 & 577.729645 & 451.595356 & 530.762090 \\
+Location & -6.589323 & -81.494655 & -0.000000 & -6.589323 \\
+Loan Amount Request (USD) & 25170.147960 & 33846.016283 & 33896.775803 & 25170.147960 \\
+Current Loan Expenses (USD) & 322.532838 & -1044.128788 & -916.054578 & 322.532838 \\
+Expense Type 1 & 4.893975 & -18.597526 & -0.000000 & 4.893975 \\
+Expense Type 2 & 392.918875 & 442.007752 & 331.536634 & 392.918875 \\
+Dependents & -107.271085 & -129.077588 & -32.648104 & -107.271085 \\
+Credit Score & 11536.632380 & 11913.265762 & 11849.608124 & 11536.632380 \\
+No. of Defaults & -288.180027 & -283.076671 & -186.162306 & -288.180027 \\
+Has Active Credit Card & 186.273044 & 139.407848 & 37.526123 & 186.273044 \\
+Property Age & -92.345962 & -1133.000706 & 0.000000 & -92.345962 \\
+Property Type & -181.740457 & -180.843779 & -86.345677 & -181.740457 \\
+Property Location & 425.679081 & 402.544719 & 306.461670 & 425.679081 \\
+Co-Applicant & -506.667855 & -493.368091 & -400.311348 & -506.667855 \\
+Property Price & 7133.177247 & 88.656836 & -0.000000 & 7133.177247 \\ \hline
+\end{tabular}
+\end{table}
+
+%==================================================
+%==================================================
+\section*{Overfitting and Underfitting Analysis}
+
+\begin{itemize}
+    
+
+    \item \textbf{Effect of regularization strength:}  
+    Increasing the regularization parameter ($\lambda$ or $\alpha$) in Ridge, Lasso, and Elastic Net penalizes large coefficients and reduces model complexity. Low regularization behaves similarly to Linear Regression and may overfit, while very high regularization can oversimplify the model, leading to underfitting. An optimal intermediate value is required.
+    
+    \item \textbf{Improvement in generalization after tuning:}  
+    After tuning the regularization strength using validation data, the gap between training and validation error decreased. This indicates improved generalization.
+\end{itemize}
+
+%==================================================
+\section*{Bias--Variance Analysis}
+
+\begin{itemize}
+    \item \textbf{Bias behavior of Linear Regression:}  
+    Linear Regression assumes a strictly linear relationship between features and the target variable. This simplicity results in relatively high bias, when the true relationship is more complex.
+
+    \item \textbf{Variance reduction using Ridge and Elastic Net:}  
+    Ridge Regression reduces variance by preventing any single feature from dominating the model. Elastic Net combines both Ridge and Lasso penalties giving the advantages of the both.
+
+    \item \textbf{Feature sparsity effect in Lasso:}  
+    Lasso Regression introduces sparsity by driving some coefficients exactly to zero. This effectively performs feature selection.
+\end{itemize}
+
+%==================================================
+\section*{Conclusion}
+
+The objective of this lab experiment was to evaluate the various regularization techniques in improving the predictive robustness of a regression model. By establishing linear regression as a baseline, we identified the inherent risks of high variance and overfitting when a model is left unconstrained.
+
+\textbf{My findings demonstrate that:} 
+
+
+
+\begin{itemize}
+    \item \textbf{}  
+   Ridge Regression effectively stabilized the model by shrinking coefficients, which reduced the error caused by high variance.
+
+    \item \textbf{}  
+    Lasso Regression provided a clearer interpretation of the data by performing automated feature selection.
+
+    \item \textbf{}  
+    Uses the strengths of both L1 and L2 penalties.
+\end{itemize}
+
+
+
+
+%==================================================
+% \section*{Report Format (Mandatory)}
+% \begin{enumerate}
+%     \item Aim and Objective
+%     \item Dataset Description
+%     \item Preprocessing Steps
+%     \item Implementation Details
+%     \item Visualizations
+%     \item Performance Tables
+%     \item Overfitting and Underfitting Analysis
+%     \item Bias--Variance Analysis
+%     \item Observations and Conclusion
+% \end{enumerate}
+
+%==================================================
+\section*{References}
+\begin{itemize}
+    \item \href{https://scikit-learn.org/stable/modules/linear_model.html}{Scikit-learn: Linear Models}
+    \item \href{https://scikit-learn.org/stable/modules/grid_search.html}{Scikit-learn: Parameter Optimization}
+    \item \href{https://www.kaggle.com/datasets/phileinsophos/predict-loan-amount-data}{Loan Amount Dataset}
+\end{itemize}
+
+\end{document}
